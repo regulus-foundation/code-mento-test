@@ -1,4 +1,4 @@
-//code-mento:comment
+//code-mentor:comment
 /*
     Copyright 2023 All Rigo Chain Developers
 
