@@ -1,4 +1,4 @@
-//code-mentor:comment
+Here is the commented version of your code:
 
 /*
     Copyright 2023 All Rigo Chain Developers
@@ -16,41 +16,49 @@
     limitations under the License.
 */
 
-import { RWeb3PkgInfo } from './version.js';
-import { RWeb3Context } from 'rweb3-core';
-import RWeb3Rigo from 'rweb3-rigo';
-import { isNullish } from 'rweb3-validator';
-import { RWeb3RigoInterface } from './types';
 
+// Various required imports:
+import { RWeb3PkgInfo } from './version.js'; // version info for RWeb3
+iimport { RWeb3Context } from 'rweb3-core'; // bringing in the RWeb3 context 
+import RWeb3Rigo from 'rweb3-rigo'; // import RWeb3Rigo module
+import { isNullish } from 'rweb3-validator'; // validator to check for null or undefined values
+import { RWeb3RigoInterface } from './types'; // specific types for RWeb3Rigo
+
+// Exporting RWeb3 as a class that extends the base RWeb3Context from rweb3-core
 export class RWeb3 extends RWeb3Context {
-    public static version = RWeb3PkgInfo.version;
+    // Static properties to provide version and module info
+    public static version = RWeb3PkgInfo.version; // assign the version info
     public static modules = {
-        RWeb3Rigo,
+        RWeb3Rigo, // RWeb3Rigo as a module
     };
 
+    // Declare a type for rigo, our RWeb3Rigo module
     public rigo: RWeb3RigoInterface;
 
+    // Constructor for RWeb3 class which may receive a provider
     public constructor(provider?: string) {
-        super(provider);
-
+        super(provider); // call the superclass' constructor
+        
+        // Check if the provider is null, undefined or an empty string
         if (isNullish(provider) || (typeof provider === 'string' && provider.trim() === '')) {
+            // If no valid provider is given, show a warning message
             console.warn(
                 'NOTE: rweb3.js is running without provider. You need to pass a provider in order to interact with the network!',
             );
         }
 
-        // Have to use local alias to initiate contract context
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        // Creating a reference to the class (self) and initializing the RWeb3Rigo (rigo) module
         const self = this;
         const rigo = self.use(RWeb3Rigo);
 
-        console.log('rigo', rigo);
-        //
-        // // Rigo Module
+        console.log('rigo', rigo); // display the rigo object for debugging purposes
+
+        // Assign rigo object to this.rigo property
         this.rigo = Object.assign(rigo, {});
 
-        console.log('this.rigo', this.rigo);
+        console.log('this.rigo', this.rigo); // display the updated this.rigo object for debugging purposes
     }
 }
 
+// Export RWeb3 as the default export
 export default RWeb3;
