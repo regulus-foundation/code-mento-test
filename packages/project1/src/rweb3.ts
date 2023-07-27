@@ -1,4 +1,3 @@
-//code-mentor:comment
 /*
     Copyright 2023 All Rigo Chain Developers
 
@@ -15,23 +14,31 @@
     limitations under the License.
 */
 
+// Import necessary files and packages
 import { RWeb3PkgInfo } from './version.js';
 import { RWeb3Context } from 'rweb3-core';
 import RWeb3Rigo from 'rweb3-rigo';
 import { isNullish } from 'rweb3-validator';
 import { RWeb3RigoInterface } from './types';
 
+// RWeb3 class which extends the RWeb3Context class
 export class RWeb3 extends RWeb3Context {
+
+    // Static properties
     public static version = RWeb3PkgInfo.version;
     public static modules = {
         RWeb3Rigo,
     };
 
+    // Declare rigo of type RWeb3RigoInterface
     public rigo: RWeb3RigoInterface;
 
+    // Constructor with optional provider parameter of type string
     public constructor(provider?: string) {
+        // Call to parent class constructor
         super(provider);
 
+        // Warn if provider is missing or empty
         if (isNullish(provider) || (typeof provider === 'string' && provider.trim() === '')) {
             console.warn(
                 'NOTE: rweb3.js is running without provider. You need to pass a provider in order to interact with the network!',
@@ -43,13 +50,16 @@ export class RWeb3 extends RWeb3Context {
         const self = this;
         const rigo = self.use(RWeb3Rigo);
 
+        // Log the rigo instance
         console.log('rigo', rigo);
-        //
-        // // Rigo Module
+        
+        // Initialize rigo by merging rigo with an empty object
         this.rigo = Object.assign(rigo, {});
 
+        // Log this instance of rigo
         console.log('this.rigo', this.rigo);
     }
 }
 
+// Export RWeb3 as default
 export default RWeb3;
