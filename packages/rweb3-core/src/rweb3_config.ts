@@ -1,4 +1,6 @@
-﻿/*
+﻿//code-mentor:comment
+
+/*
     Copyright 2023 All Rigo Chain Developers
 
     Licensed under the Apache License, Version 2.0 (the "License");
